@@ -2,22 +2,22 @@
 
 1. Create a Movies Database with a table similar to the excel screenshot above
 
- CREATE TABLE IF NOT EXISTS Movies(
+  CREATE TABLE IF NOT EXISTS Movies(
     -> MovieID INT UNSIGNED NOT NULL AUTO_INCREMENT,
-    ->  Runtime INT UNSIGNED NOT NULL DEFAULT 0,
+    -> Title VARCHAR(50) NOT NULL DEFAULT '',
+    -> Runtime INT UNSIGNED NOT NULL DEFAULT 0,
     -> Genre VARCHAR (50) NOT NULL DEFAULT '',
     -> IMDB_Score DECIMAL(7,2) NOT NULL DEFAULT 99999.99,
-    ->  Rating VARCHAR(5) NOT NULL DEFAULT '',
+    -> Rating VARCHAR(5) NOT NULL DEFAULT '',
     -> PRIMARY KEY (MovieID)
     -> );
-
-
-INSERT INTO movies VALUES
+    
+INSERT INTO Movies VALUES
     -> (NULL,'Howard the Duck',110,'Sci-Fi',4.6,'PG'),
     -> (NULL,'Lavalantula',83,'Horror',4.7,'TV-14'),
-    -> (NULL, 'Starship Troopers',129,'Sci-Fi',7.2,'PG-13'),
-    -> (NULL, 'Waltz With Bashir',90,'Documentary',8,'R'),
-    -> (NULL, 'Spaceballs', 96,'Comedy',7.1,'PG'),
+    -> (NULL,'Starship Troopers',129,'Sci-Fi',7.2,'PG-13'),
+    -> (NULL,'Waltz With Bashir',90,'Documentary',8,'R'),
+    -> (NULL,'Spaceballs', 96,'Comedy',7.1,'PG'),
     -> (NULL,'Monsters Inc.',92,'Animation',8.1,'G');
 
 
@@ -52,9 +52,12 @@ SELECT AVG(Runtime) FROM movies WHERE IMDB_Score <= 7.5
  UPDATE Movies  SET Rating = 'R' WHERE Title = 'Starship Troopers';
 
 - Show the ID number and rating of all of the Horror and Documentary movies in the database. Do this in only one query.
+ SELECT MovieID, Rating FROM Movies WHERE Genre IN('Horror','Documentary');
 
 
 - This time let's find the average, maximum, and minimum IMDB score for movies of each rating.
+- 
+SELECT AVG(IMDB_Score),MAX(IMDB_Score),MIN(IMDB_Score) FROM Movies GROUP BY Genre;
 
 - That last query isn't very informative for ratings that only have 1 entry. use a HAVING COUNT(*) > 1 clause to only show ratings with multiple movies showing.
 
