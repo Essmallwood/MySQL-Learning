@@ -46,20 +46,20 @@ INSERT INTO Movies VALUES
 SELECT AVG(Runtime) FROM movies WHERE IMDB_Score <= 7.5
     -> GROUP BY Genre;
     
-    
 7. There's been a data entry mistake; Starship Troopers is actually rated R, not PG-13. Create a query that finds the movie by its title and changes its rating to R.
 
  UPDATE Movies  SET Rating = 'R' WHERE Title = 'Starship Troopers';
 
-- Show the ID number and rating of all of the Horror and Documentary movies in the database. Do this in only one query.
+8.  Show the ID number and rating of all of the Horror and Documentary movies in the database. Do this in only one query.
  SELECT MovieID, Rating FROM Movies WHERE Genre IN('Horror','Documentary');
 
 
-- This time let's find the average, maximum, and minimum IMDB score for movies of each rating.
-- 
+9.This time let's find the average, maximum, and minimum IMDB score for movies of each rating.
+
 SELECT AVG(IMDB_Score),MAX(IMDB_Score),MIN(IMDB_Score) FROM Movies GROUP BY Genre;
 
-- That last query isn't very informative for ratings that only have 1 entry. use a HAVING COUNT(*) > 1 clause to only show ratings with multiple movies showing.
-
-- Let's make our movie list more child-friendly. Delete all entries that have a rating of R.
-
+10.That last query isn't very informative for ratings that only have 1 entry. use a HAVING COUNT(*) > 1 clause to only show ratings with multiple movies showing.
+ SELECT COUNT(*) FROM Movies GROUP BY Genre HAVING COUNT(*)>1;
+ 
+11. Let's make our movie list more child-friendly. Delete all entries that have a rating of R.
+DELETE FROM Movies WHERE Rating = 'R';
